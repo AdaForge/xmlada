@@ -29,6 +29,8 @@ abstract project XmlAda_Shared is
    Library_Type : Library_Type_Type := external ("LIBRARY_TYPE", "@DEFAULT_LIBRARY_TYPE@");
 
    for Source_Dirs use ();
+   for Object_Dir  use "build/";
+   for Library_Dir use "build/";
 
    type Mode_Type is ("distrib", "Debug", "Production", "profile", "coverage",
                       "nochecks");

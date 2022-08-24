@@ -1,8 +1,8 @@
-with "../../xmlada_shared";
+with "xmlada_shared";
 with "xmlada_sax";
 project Sax_Test is
    for Main use ("testsax.adb", "teststate.adb");
-   for Object_Dir use "obj";
+   for Object_Dir use "../../" & XmlAda_Shared.Object_Dir & "obj";
    package Builder  renames XmlAda_Shared.Builder;
    package Compiler renames XmlAda_Shared.Compiler;
    package Binder   renames XmlAda_Shared.Binder;

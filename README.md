@@ -13,13 +13,24 @@ All merits go to [Adacore](https://www.Adacore.com)'s Team.
 ### Major diffs with AdaCore's version
 
 As to be able to build in a dedicated directory as e.g `build` :
-* Replaced location references of `xmlada.gpr` to `../xmlada.gpr`
+* Adapted `Makefile.in` and `docs/Makefile` files 
+* Adapted `*.prj` files 
+  * Replaced the location references `../xmlada_shared.gpr` to `xmlada.gpr`
 
 ## Prerequisites
 
 * Ada compiler. I use `gcc` (from GNU FSF)
 * minimal bootstrap of [gprbuild](https://github.com/AdaForge/gprbuild)
 * [gprconfig_kb](https://github.com/AdaCore/gprconfigure_kb)
+
+In order to build the docs, you need to have the following tools installed:
+* `sphinx` -> `pip install sphinx`
+* `latexmk`and `texlive-latex-extra`  
+  * [macOS] -> `sudo port install latexmk texlive-latex-extra `
+  * [FreeBSD] -> `sudo pkg install latexmk texlive-latex-extra `
+  * Additional Fonts : 
+    * [TeX Gyre Termes](https://www.gust.org.pl/projects/e-foundry/tex-gyre/termes/index_html)
+    * [TeX Gyre Heros](https://www.gust.org.pl/projects/e-foundry/tex-gyre/heros)
 
 ## Configuration as code
 

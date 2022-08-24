@@ -65,3 +65,4 @@ xmlada-loc.xml
 .vscode/
 .cvsignore
 */.cvsignore
+build/

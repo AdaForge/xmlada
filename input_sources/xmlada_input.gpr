@@ -21,15 +21,15 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with "../xmlada_shared.gpr";
+with "xmlada_shared.gpr";
 with "../unicode/xmlada_unicode.gpr";
 
 project XmlAda_Input is
 
    for Library_Name use "xmlada_input_sources";
    for Library_Kind use XmlAda_Shared.Library_Type;
-   for Object_Dir  use "obj/" & Project'Library_Kind;
-   for Library_Dir use "lib/" & Project'Library_Kind;
+   for Object_Dir  use "../" & XmlAda_Shared.Object_Dir & "obj/" & Project'Library_Kind;
+   for Library_Dir use "../" & XmlAda_Shared.Library_Dir & "lib/" & Project'Library_Kind;
    for Library_Version use "lib" & Project'Library_Name
       & XmlAda_Shared.So_Ext & "." & XmlAda_Shared.Version;
 

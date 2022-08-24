@@ -1,9 +1,9 @@
-with "../../xmlada_shared";
+with "xmlada_shared";
 with "xmlada_sax";
 
 project Base64_Test is
    for Main use ("test_base64");
-   for Object_Dir use "obj";
+   for Object_Dir use "../../" & XmlAda_Shared.Object_Dir & "obj";
    package Builder  renames XmlAda_Shared.Builder;
    package Compiler renames XmlAda_Shared.Compiler;
    package Binder   renames XmlAda_Shared.Binder;
