@@ -69,18 +69,18 @@ install: install-clean install-static
 endif
 
 static:
-	${GPRBUILD} -p -XLIBRARY_TYPE=static ${GPROPTS} xmlada.gpr ${GPROPTS_EXTRA}
+	${GPRBUILD} -p -XLIBRARY_TYPE=static ${GPROPTS} ../xmlada.gpr ${GPROPTS_EXTRA}
 
 shared relocatable:
-	${GPRBUILD} -p -XLIBRARY_TYPE=relocatable ${GPROPTS} xmlada.gpr ${GPROPTS_EXTRA}
+	${GPRBUILD} -p -XLIBRARY_TYPE=relocatable ${GPROPTS} ../xmlada.gpr ${GPROPTS_EXTRA}
 
 static-pic:
-	${GPRBUILD} -p -XLIBRARY_TYPE=static-pic ${GPROPTS} xmlada.gpr ${GPROPTS_EXTRA}
+	${GPRBUILD} -p -XLIBRARY_TYPE=static-pic ${GPROPTS} ../xmlada.gpr ${GPROPTS_EXTRA}
 
 # Rebuild the tests (and not the XML/Ada code itself)
 test: force
 	${GPRBUILD} -p -XLIBRARY_TYPE=static ${GPROPTS} \
-		-XTESTS_ACTIVATED=Only xmlada.gpr ${GPROPTS_EXTRA}
+		-XTESTS_ACTIVATED=Only ../xmlada.gpr ${GPROPTS_EXTRA}
 
 # Run the tests. This requires an install of XML/Ada first
 run_test: force
@@ -110,20 +110,20 @@ GPRINST_OPTS=-f -p ${GPROPTS} --prefix=${IPREFIX} --install-name=xmlada \
 
 install-static:
 	${GPRINSTALL} -XLIBRARY_TYPE=static ${GPRINST_OPTS} \
-		--build-name=static  xmlada.gpr
+		--build-name=static  ../xmlada.gpr
 
 install-shared install-relocatable:
 	${GPRINSTALL} -XLIBRARY_TYPE=relocatable ${GPRINST_OPTS} \
-		--build-name=relocatable xmlada.gpr
+		--build-name=relocatable ../xmlada.gpr
 
 install-static-pic:
 	${GPRINSTALL} -XLIBRARY_TYPE=static-pic ${GPRINST_OPTS} \
-		--build-name=static-pic xmlada.gpr
+		--build-name=static-pic ../xmlada.gpr
 
 
 clean_%: force
-	-gprclean -XLIBRARY_TYPE=$* -q xmlada.gpr
-	-gprclean -XLIBRARY_TYPE=$* -q -XTESTS_ACTIVATED=Yes xmlada.gpr
+	-gprclean -XLIBRARY_TYPE=$* -q ../xmlada.gpr
+	-gprclean -XLIBRARY_TYPE=$* -q -XTESTS_ACTIVATED=Yes ../xmlada.gpr
 
 clean: clean_relocatable clean_static clean_static-pic
 	cd docs; ${MAKE} -e clean

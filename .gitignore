@@ -62,3 +62,6 @@ b__*.ad*
 *dylib*
 gnatinspect.db
 xmlada-loc.xml
+.vscode/
+.cvsignore
+*/.cvsignore

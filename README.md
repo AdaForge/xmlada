@@ -1,8 +1,141 @@
-XML/Ada: An XML parser for Ada95
-================================
+# `xmlada` from AdaCore
 
-INSTALLING THIS LIBRARY ON UNIX
--------------------------------
+This fork is a (slight) rework of the installation scripts and process as to build 
+the software on exotic(!) OS systems as `macOS` & `FreeBSD`.
+
+Aim is to have a working bootstrap of `gprbuild` which depends on `xmlada`.
+
+Brought to you by [AdaForge](https://www.Adaforge.org).
+
+All merits go to [Adacore](https://www.Adacore.com)'s Team.
+
+
+### Major diffs with AdaCore's version
+
+As to be able to build in a dedicated directory as e.g `build` :
+* Replaced location references of `xmlada.gpr` to `../xmlada.gpr`
+
+## Prerequisites
+
+* Ada compiler. I use `gcc` (from GNU FSF)
+* minimal bootstrap of [gprbuild](https://github.com/AdaForge/gprbuild)
+* [gprconfig_kb](https://github.com/AdaCore/gprconfigure_kb)
+
+## Configuration as code
+
+* `DESTDIR` / `PREFIX` : I personnaly install exprimental dev-tools in my `/home` - `/Users` directory
+  *   typicaly on FreeBSD : `/home/william/usr/local`
+  *   typicaly on macOS : `/Users/william/Library/Developer/GNAT`
+* `gprconfig_kb` and `xmlada` are located at the same level as `gprbuild`
+* Build directory is a sub-directory of the gprbuild project’ named `build`
+* `GPR_PROJECT_PATH` is not set’ and defaults in my case to 
+   * on FreeBSD : `/home/william/usr/local/share/gpr`
+   * on macOS : `/Users/william/Library/Developer/GNAT/share/gpr`
+
+
+## Environment variables
+
+`DESTDIR=`your installation location WITH a TRAILING slash '/'; defaults to `/usr/local`
+
+Optional
+`CC=`(...your C/Ada compiler)
+`CXX=`(...your C++ compiler)
+`GNATMAKE=`(...your C/Ada compiler)
+
+
+When compiling, you can choose whether you want to link statically with XML/Ada
+(the default), or dynamically. To compile dynamically, you should run:
+
+```Shell
+gmake LIBRARY_TYPE=relocatable all
+```
+
+### Sample
+
+* on FreeBSD
+
+```Shell
+export DESTDIR=/users/william/
+export CC=/home/william/usr/local/gcc-12.2.0/bin/gcc
+export CXX=/home/william/usr/local/gcc-12.2.0/bin/g++
+export GNATMAKE=/home/william/usr/local/gcc-12.2.0/bin/gnatmake
+```
+
+* on MacOS
+
+```Shell
+export DESTDIR=/Users/william/Library/Developer/
+PREFIX=GNAT
+export CC=/Users/william/Library/Developer/GNAT/gcc-12.2.0/bin/gcc
+export CXX=Users/william/Library/Developer/GNAT/gcc-12.2.0/bin/g++
+export GNATMAKE=Users/william/Library/Developer/GNAT/gcc-12.2.0/bin/gnatmake
+```
+
+# Steps
+
+Steps noted as `0.` are done just once.
+
+Go through the other steps after a clean-up of the build
+
+### `0.a` Get the software
+
+From [Adaforge.org](https://www.Adaforge.org)'s [GitHub repository](https://github.com/AdaForge)
+
+```Shell
+git pull https://github.com/AdaForge/xmlada.git 
+```
+
+### `0.b` Set environment variables
+
+```Shell
+export ADA_PROJECT_PATH=..
+unset PRJ_PROJECT_PATH
+```
+
+* optional
+
+```Shell
+export CC=/.../bin/gcc
+export CXX=/.../bin/g++
+export GNATMAKE=/.../bin/gnatmake
+```
+
+### `1.` Generate `Makefile` with your local configuration
+
+```Shell
+mkdir -p build
+cd build
+./configure --prefix=/.../
+```
+
+### `2.` Build  `xmlada`
+
+* you are in `.../gprbuild/build`
+```Shell
+gmake all
+```
+
+### `2.` Intall  `xmlada`
+
+* you are in `.../gprbuild/build`
+```Shell
+(sudo) gmake install
+```
+
+### `99.` Clean-up
+* you are in `.../gprbuild/build`
+
+```Shell
+cd ..
+gmake clean
+```
+or more straightforward:
+```Shell
+cd ..
+rm -r build
+```
+
+## INSTALLING THIS LIBRARY ON UNIX
 
 Make sure that you do not have a previous installation of XML/Ada in one
 of the directories given in ADA_OBJECTS_PATH, or some files will not be
@@ -54,8 +187,7 @@ Compiling with other Ada compilers
 This library has been reported as being compilable with other compilers than
 GNAT. No build script is provided however.
 
-INSTALLING THIS LIBRARY ON WINDOWS
-----------------------------------
+## INSTALLING THIS LIBRARY ON WINDOWS
 
 1. Due to the nature of GNU Make you need to have a UNIX-type shell and
    utilities installed to build this library. If you do not have this,
@@ -89,8 +221,8 @@ INSTALLING THIS LIBRARY ON WINDOWS
    executable. In such a case, it is recommended to execute
    "make INSTALL=cp install" instead to use "cp" to do the installation
 
-TWEAKING THE LIBRARY
---------------------
+
+## TWEAKING THE LIBRARY
 
 You can change the way the library behaves, in particular the DOM part,
 by changing some of the hard-coded constants in the code. If you change
@@ -105,13 +237,11 @@ these, you will need to recompile the library and your application:
   Whether the internal representation of namespaces should be shared among
   nodes. The default is yes
 
-USING THE LIBRARY
------------------
+## USING THE LIBRARY
 
 See the XML/Ada user's guide for information on how to use this library.
 
-TESTING THE LIBRARY
--------------------
+## TESTING THE LIBRARY
 
 Several test programs are provided in the XML/Ada source package. These
 are found in the dom/test and sax/test subdirectories. These are very simple
@@ -163,8 +293,7 @@ to get the output under those conditions, since "make run_test" is setup
 for the .tar.gz output.
 
 
-CONTENTS OF THE LIBRARY
------------------------
+## CONTENTS OF THE LIBRARY
 
 The sources in this library are split into several subdirectories, each
 with its own README, sources, documentation and unit tests.
@@ -194,8 +323,7 @@ The list of subdirectories (aka modules) is:
 - docs
   This contains the full documentation for this XML library
 
-BUG REPORTS
------------
+## BUG REPORTS
 
 Please send questions and bug reports to report@gnat.com following
 the same procedures used to submit reports with the GNAT toolset itself.
